@@ -5,7 +5,6 @@ import (
 	"net/http"
 )
 
-// Response representa uma estrutura comum para respostas de sucesso e erro
 type Response struct {
 	Message string      `json:"message,omitempty"`
 	Data    interface{} `json:"data,omitempty"`

@@ -18,8 +18,8 @@ func TestGetAccountHandler(t *testing.T) {
 		name            string
 		requestURL      string
 		expectedStatus  int
-		expectedAccount *account.Account       // Preencha com o valor esperado para a conta
-		serviceMock     func(m *mocks.UseCase) // Use o mock gerado pelo mockery
+		expectedAccount *account.Account
+		serviceMock     func(m *mocks.UseCase)
 	}{
 		{
 			name:           "Success",

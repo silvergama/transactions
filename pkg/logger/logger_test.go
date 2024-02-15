@@ -249,7 +249,7 @@ func TestFatal(t *testing.T) {
 	log = zap.New(observedZapCore)
 
 	// this will force to panic instead of call exit(1)
-	log = log.WithOptions(zap.OnFatal(zapcore.WriteThenPanic))
+	log = log.WithOptions(zap.WithFatalHook(zapcore.WriteThenPanic))
 
 	type args struct {
 		message string

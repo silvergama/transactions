@@ -22,7 +22,7 @@ func TestCreateTransactionHandler(t *testing.T) {
 		requestBody      string
 		expectedStatus   int
 		expectedResponse response.Response
-		serviceMock      func(m *mocks.UseCase) // Use o mock gerado pelo mockery
+		serviceMock      func(m *mocks.UseCase)
 	}{
 		{
 			name:           "Success",

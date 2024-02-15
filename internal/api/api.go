@@ -12,9 +12,8 @@ import (
 	"github.com/silvergama/transations/infrastructure"
 	"github.com/silvergama/transations/pkg/logger"
 	"github.com/silvergama/transations/transaction"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"go.uber.org/zap"
-
-	_ "github.com/silvergama/transations/cmd/api/docs"
 
 	accountRepo "github.com/silvergama/transations/account/postgres"
 
@@ -66,6 +65,8 @@ func Start(cfg config.Config) {
 	router := mux.NewRouter()
 
 	router.Use(RequestIDMiddleware)
+
+	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 
 	router.HandleFunc("/accounts/{id:[0-9]+}", accountHandler.GetAccountHandler).Methods(http.MethodGet)
 	router.HandleFunc("/accounts", accountHandler.CreateAccountHandler).Methods(http.MethodPost)

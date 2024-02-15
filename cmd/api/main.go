@@ -6,8 +6,8 @@
 package main
 
 import (
-	_ "github.com/silvergama/transations/cmd/api/docs"
 	"github.com/silvergama/transations/config"
+	_ "github.com/silvergama/transations/docs"
 	"github.com/silvergama/transations/internal/api"
 )
 

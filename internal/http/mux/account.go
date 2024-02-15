@@ -7,7 +7,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/silvergama/transations/account"
-	_ "github.com/silvergama/transations/cmd/api/docs"
+	_ "github.com/silvergama/transations/docs"
 	"github.com/silvergama/transations/pkg/logger"
 	"github.com/silvergama/transations/pkg/response"
 	"go.uber.org/zap"
@@ -23,11 +23,22 @@ func NewAccountHandler(accountService account.UseCase) *AccountHandler {
 	}
 }
 
+// GetAccount godoc
+// @Summary      Get an account
+// @Description  get string by ID
+// @Tags         accounts
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Account ID"
+// @Success      200  {object}  account.Account
+// @Failure      400  {object}  response.Error
+// @Failure      404  {object}  response.Error
+// @Failure      500  {object}  response.Error
+// @Router       /accounts/{id} [get]
 func (h *AccountHandler) GetAccountHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	accountIDStr := params["id"]
 
-	// Verificar se o ID é um número válido
 	accountID, err := strconv.Atoi(accountIDStr)
 	if err != nil {
 		logger.Error("failed to convert string to int",

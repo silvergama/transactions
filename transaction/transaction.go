@@ -2,7 +2,6 @@ package transaction
 
 import "context"
 
-// Transaction representa a entidade transaction.
 type Transaction struct {
 	ID              int           `json:"id,omitempty"`
 	AccountID       int           `json:"account_id,omitempty"`
@@ -10,7 +9,6 @@ type Transaction struct {
 	Amount          float64       `json:"amount,omitempty"`
 }
 
-// OperationType representa os tipos de operação possíveis.
 type OperationType int
 
 const (
