@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-func TestUseCase_Create(t *testing.T) {
+func TestUseCaseCreate(t *testing.T) {
 	tests := []struct {
 		name          string
 		mockedRepo    func(m *mocks.Repository)
@@ -57,7 +57,7 @@ func TestUseCase_Create(t *testing.T) {
 	}
 }
 
-func Test_processTransaction(t *testing.T) {
+func TestProcessTransaction(t *testing.T) {
 	type args struct {
 		t *transaction.Transaction
 	}

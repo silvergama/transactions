@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestRepository_Create(t *testing.T) {
+func TestRepositoryCreate(t *testing.T) {
 	tests := []struct {
 		name        string
 		mockedQuery func(mock sqlmock.Sqlmock)
