@@ -20,8 +20,8 @@ run:
 
 # run unit tests
 test:
-	go test -coverprofile coverage-unit.out -failfast -short $(GOPACKAGES)
-	go tool cover -func coverage-unit.out | grep total
+	go test -coverprofile coverage.out -failfast -short $(GOPACKAGES)
+	go tool cover -func coverage.out | grep total
 
 # run lint
 lint: #fix
