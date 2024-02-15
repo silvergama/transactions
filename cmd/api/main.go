@@ -2,7 +2,7 @@
 // @description API for managing transactions
 // @version 1.0
 // @host localhost:8080
-// @BasePath /v1
+// @BasePath /
 package main
 
 import (
