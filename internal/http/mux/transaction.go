@@ -70,6 +70,7 @@ func (h *TransactionHandler) CreateTransactionHandler(w http.ResponseWriter, r *
 
 }
 
+// isValidOperationType checks if the provided operation type is valid
 func isValidOperationType(opType transaction.OperationType) bool {
 	switch opType {
 	case transaction.Purchase, transaction.Installment, transaction.Withdrawal, transaction.Payment:

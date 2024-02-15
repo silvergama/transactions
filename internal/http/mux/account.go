@@ -45,7 +45,10 @@ func (h *AccountHandler) GetAccountHandler(w http.ResponseWriter, r *http.Reques
 	if err != nil {
 		logger.Error("failed to convert string to int",
 			zap.Error(err),
-			zap.String("account_id", accountIDStr))
+			zap.String("account_id", accountIDStr),
+			zap.Any("request_id", r.Context().Value("request_id")),
+		)
+
 		response.WriteBadRequest(w, "id parameter is different from expected")
 		return
 	}

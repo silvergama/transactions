@@ -22,13 +22,14 @@ import (
 
 // RequestIDMiddleware is a middleware that adds a request ID to the context
 func RequestIDMiddleware(next http.Handler) http.Handler {
+	type requestIDKey string
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		requestID := r.Header.Get("X-Request-ID")
 		if requestID == "" {
 			requestID = uuid.New().String()
 		}
 
-		ctx := context.WithValue(r.Context(), "request_id", requestID)
+		ctx := context.WithValue(r.Context(), requestIDKey("request_id"), requestID)
 
 		w.Header().Set("X-Request-ID", requestID)
 
@@ -69,7 +70,7 @@ func Start(cfg config.Config) {
 
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 
-	router.HandleFunc("/accounts/{id:[0-9]+}", accountHandler.GetAccountHandler).Methods(http.MethodGet)
+	router.HandleFunc("/accounts/{id}", accountHandler.GetAccountHandler).Methods(http.MethodGet)
 	router.HandleFunc("/accounts", accountHandler.CreateAccountHandler).Methods(http.MethodPost)
 
 	router.HandleFunc("/transactions", transactionHandler.CreateTransactionHandler).Methods(http.MethodPost)

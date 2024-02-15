@@ -29,13 +29,3 @@ type Repository interface {
 type UseCase interface {
 	Create(ctx context.Context, transaction *Transaction) (int, error)
 }
-
-// isValidOperationType checks if the provided operation type is valid
-func isValidOperationType(opType OperationType) bool {
-	switch opType {
-	case Purchase, Installment, Withdrawal, Payment:
-		return true
-	default:
-		return false
-	}
-}
