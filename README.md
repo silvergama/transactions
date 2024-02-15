@@ -1,5 +1,5 @@
 # Pismo Technical Challenge - Transaction System
-
+![Transaction System](docs/transactions.png)
 ## Description:
 This is a transaction system project developed as part of the technical challenge proposed by Pismo.
 The main goal is to create an application that manages financial transactions, allowing the creation, listing, and querying of accounts and transactions.
