@@ -51,8 +51,22 @@ Ensure you have the following tools installed:
   make ensure
   ```
 ### Local Execution:
+  Run build with the following command:
   ```bash
   make build
+  ```
+
+  Run swagger doc with the following command:
+  
+  After building, you can access the Swagger documentation at:
+  http://localhost:8080/swagger/index.html
+
+  ```bash
+  make swag
+  ```  
+  
+  Run application with the following command:
+  ```bash
   make run
   ```
 ### Tests:

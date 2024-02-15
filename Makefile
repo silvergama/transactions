@@ -11,7 +11,7 @@ tidy:
 	@go mod tidy
 
 # build the whole application using Go locally
-build:
+build: swag
 	@go build -v --ldflags="-s" ./cmd/api
 
 # build and run service
@@ -32,6 +32,13 @@ cover-clear:
 
 coverage: 
 	go test -tags="all" -covermode="count" -coverprofile="cover.out" $(GOPACKAGES)
+
+# =========== Swagger =============
+check/swag:
+	which swag || go get -u github.com/swaggo/swag/cmd/swag
+
+swag: check/swag
+	swag init -g cmd/api/main.go
 
 # =========== Working with Docker =============
 docker/build:
