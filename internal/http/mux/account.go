@@ -13,10 +13,12 @@ import (
 	"go.uber.org/zap"
 )
 
+// AccountHandler is responsible for handling HTTP requests related to accounts
 type AccountHandler struct {
 	accountService account.UseCase
 }
 
+// NewAccountHandler creates a new instance of AccountHandler
 func NewAccountHandler(accountService account.UseCase) *AccountHandler {
 	return &AccountHandler{
 		accountService: accountService,

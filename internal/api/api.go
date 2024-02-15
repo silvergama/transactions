@@ -16,11 +16,11 @@ import (
 	"go.uber.org/zap"
 
 	accountRepo "github.com/silvergama/transations/account/postgres"
-
 	handler "github.com/silvergama/transations/internal/http/mux"
 	transactionRepo "github.com/silvergama/transations/transaction/postgres"
 )
 
+// RequestIDMiddleware is a middleware that adds a request ID to the context
 func RequestIDMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		requestID := r.Header.Get("X-Request-ID")
@@ -36,6 +36,7 @@ func RequestIDMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+// Start initializes and starts the API server
 func Start(cfg config.Config) {
 	stringConnection := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		cfg.Database.User,
@@ -48,7 +49,7 @@ func Start(cfg config.Config) {
 	db, err := infrastructure.NewDatabase(stringConnection)
 	if err != nil {
 		logger.Error(
-			"failed to create a instance database",
+			"failed to create an instance of the database",
 			zap.Error(err),
 		)
 		return
@@ -81,5 +82,5 @@ func Start(cfg config.Config) {
 	}
 
 	logger.Info(fmt.Sprintf("listening on %d", cfg.ServerHTTP.Port))
-	logger.Fatal("failed to run server", zap.Any("server", srv.ListenAndServe()))
+	logger.Fatal("failed to run the server", zap.Any("server", srv.ListenAndServe()))
 }

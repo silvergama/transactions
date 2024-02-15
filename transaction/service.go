@@ -7,14 +7,17 @@ import (
 	"go.uber.org/zap"
 )
 
+// Service represents the business logic for transaction operations
 type Service struct {
 	repo Repository
 }
 
+// NewService creates a new Service instance with the provided repository
 func NewService(r Repository) *Service {
 	return &Service{repo: r}
 }
 
+// CreateTransactionHandler handles the creation of a new transaction
 func (s *Service) Create(ctx context.Context, transaction *Transaction) (int, error) {
 
 	ProcessTransaction(transaction)
@@ -32,6 +35,7 @@ func (s *Service) Create(ctx context.Context, transaction *Transaction) (int, er
 	return transactionID, nil
 }
 
+// ProcessTransaction processes the given transaction
 func ProcessTransaction(t *Transaction) {
 	switch t.OperationTypeID {
 	case Purchase, Withdrawal, Installment:

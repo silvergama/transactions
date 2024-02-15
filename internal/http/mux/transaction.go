@@ -10,10 +10,12 @@ import (
 	"go.uber.org/zap"
 )
 
+// TransactionHandler is responsible for handling HTTP requests related to transactions
 type TransactionHandler struct {
 	transactionService transaction.UseCase
 }
 
+// NewTransactionHandler creates a new instance of TransactionHandler
 func NewTransactionHandler(transactionService transaction.UseCase) *TransactionHandler {
 	return &TransactionHandler{
 		transactionService: transactionService,
