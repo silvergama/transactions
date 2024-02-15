@@ -60,6 +60,18 @@ func (h *AccountHandler) GetAccountHandler(w http.ResponseWriter, r *http.Reques
 	response.Write(w, acc, http.StatusOK)
 }
 
+// CreateAccountHandler handles the creation of a new account.
+// @Summary Create a new account
+// @Description Create a new account
+// @ID create-account
+// @Accept json
+// @Produce json
+// @Param account body account.Account true "Account object to be created"
+// @Success 201 {object} response.Response
+// @Failure      400  {object}  response.Error
+// @Failure      404  {object}  response.Error
+// @Failure      500  {object}  response.Error
+// @Router /accounts [post]
 func (h *AccountHandler) CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 	var requestAccount account.Account
 

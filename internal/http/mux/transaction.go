@@ -20,6 +20,18 @@ func NewTransactionHandler(transactionService transaction.UseCase) *TransactionH
 	}
 }
 
+// CreateAccountHandler handles the creation of a new transaction.
+// @Summary Create a new transaction
+// @Description Create a new transaction
+// @ID create-transaction
+// @Accept json
+// @Produce json
+// @Param transaction body transaction.Transaction true "Transaction object to be created"
+// @Success 201 {object} response.Response
+// @Failure      400  {object}  response.Error
+// @Failure      404  {object}  response.Error
+// @Failure      500  {object}  response.Error
+// @Router /transaction [post]
 func (h *TransactionHandler) CreateTransactionHandler(w http.ResponseWriter, r *http.Request) {
 	var requestTransaction transaction.Transaction
 	if err := json.NewDecoder(r.Body).Decode(&requestTransaction); err != nil {
@@ -56,7 +68,6 @@ func (h *TransactionHandler) CreateTransactionHandler(w http.ResponseWriter, r *
 
 }
 
-// Função de validação básica no handler
 func isValidOperationType(opType transaction.OperationType) bool {
 	switch opType {
 	case transaction.Purchase, transaction.Installment, transaction.Withdrawal, transaction.Payment:
