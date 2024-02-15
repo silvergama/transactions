@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/silvergama/transations/pkg/logger"
+	"github.com/silvergama/transations/pkg/response"
 	"github.com/silvergama/transations/transaction"
 	"go.uber.org/zap"
 )
@@ -22,8 +23,8 @@ func NewTransactionHandler(transactionService transaction.UseCase) *TransactionH
 func (h *TransactionHandler) CreateTransactionHandler(w http.ResponseWriter, r *http.Request) {
 	var requestTransaction transaction.Transaction
 	if err := json.NewDecoder(r.Body).Decode(&requestTransaction); err != nil {
-		logger.Error("failed to decoding json", zap.Error(err), zap.Any("context", r.Context()))
-		w.WriteHeader(http.StatusInternalServerError)
+		logger.Error("failed to decoding json", zap.Error(err))
+		response.WriteBadRequest(w, "failed to decode payload")
 		return
 	}
 
@@ -31,7 +32,7 @@ func (h *TransactionHandler) CreateTransactionHandler(w http.ResponseWriter, r *
 		logger.Error("type of operation not permitted",
 			zap.Any("operation_type", requestTransaction.OperationTypeID),
 		)
-		w.WriteHeader(http.StatusBadRequest)
+		response.WriteBadRequest(w, "invalid operation type")
 		return
 	}
 
@@ -41,16 +42,18 @@ func (h *TransactionHandler) CreateTransactionHandler(w http.ResponseWriter, r *
 			zap.Error(err),
 			zap.Any("transaction", requestTransaction),
 		)
-		w.WriteHeader(http.StatusInternalServerError)
+		response.WriteServerError(w, "failed to create transaction")
 		return
 	}
 
-	response := map[string]interface{}{
-		"account_id": transactionID,
-		"message":    "Conta criada com sucesso",
+	resp := response.Response{
+		Message: "transaction created successfully",
+		Data: map[string]interface{}{
+			"transaction_id": transactionID,
+		},
 	}
+	response.Write(w, resp, http.StatusCreated)
 
-	JSONResponse(w, http.StatusCreated, response)
 }
 
 // Função de validação básica no handler

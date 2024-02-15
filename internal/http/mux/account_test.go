@@ -24,7 +24,7 @@ func TestGetAccountHandler(t *testing.T) {
 		{
 			name:           "Success",
 			requestURL:     "/accounts/1",
-			expectedStatus: http.StatusCreated,
+			expectedStatus: http.StatusOK,
 			expectedAccount: &account.Account{
 				AccoundID:      1,
 				DocumentNumber: "1010101",
@@ -60,16 +60,15 @@ func TestGetAccountHandler(t *testing.T) {
 			tt.serviceMock(useCase)
 
 			account.NewService(useCase)
-			router := mux.NewRouter()
 			handler := NewAccountHandler(useCase)
 
 			req, err := http.NewRequest("GET", tt.requestURL, nil)
 			assert.NoError(t, err)
 
-			rr := httptest.NewRecorder()
-
+			router := mux.NewRouter()
 			router.HandleFunc("/accounts/{id:[0-9]+}", handler.GetAccountHandler).Methods("GET")
 
+			rr := httptest.NewRecorder()
 			router.ServeHTTP(rr, req)
 
 			assert.Equal(t, tt.expectedStatus, rr.Code)

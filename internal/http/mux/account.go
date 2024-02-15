@@ -7,7 +7,9 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/silvergama/transations/account"
+	_ "github.com/silvergama/transations/cmd/api/docs"
 	"github.com/silvergama/transations/pkg/logger"
+	"github.com/silvergama/transations/pkg/response"
 	"go.uber.org/zap"
 )
 
@@ -31,7 +33,7 @@ func (h *AccountHandler) GetAccountHandler(w http.ResponseWriter, r *http.Reques
 		logger.Error("failed to convert string to int",
 			zap.Error(err),
 			zap.String("account_id", accountIDStr))
-		w.WriteHeader(http.StatusBadRequest)
+		response.WriteBadRequest(w, "id parameter is different from expected")
 		return
 	}
 
@@ -40,38 +42,41 @@ func (h *AccountHandler) GetAccountHandler(w http.ResponseWriter, r *http.Reques
 		logger.Warn("failed to get account by account_id",
 			zap.Error(err),
 			zap.Int("account_id", accountID))
-		w.WriteHeader(http.StatusNotFound)
+		response.WriteNotFound(w, "Unable to find an account with this account_id")
 		return
 	}
 
-	JSONResponse(w, http.StatusCreated, acc)
+	response.Write(w, acc, http.StatusOK)
 }
 
 func (h *AccountHandler) CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 	var requestAccount account.Account
 
 	if err := json.NewDecoder(r.Body).Decode(&requestAccount); err != nil {
-		logger.Error("failed to decoding json", zap.Error(err), zap.Any("context", r.Context()))
-		w.WriteHeader(http.StatusInternalServerError)
+		logger.Error("failed to decoding json", zap.Error(err))
+		response.WriteBadRequest(w, "failed to decode payload")
 		return
 	}
 
 	if requestAccount.DocumentNumber == "" {
-		logger.Warn("document number not found", zap.Any("context", r.Context()))
-		w.WriteHeader(http.StatusBadRequest)
+		logger.Warn("document number not found")
+		response.WriteBadRequest(w, "document number not found")
 		return
 	}
 
 	accountID, err := h.accountService.Create(r.Context(), &requestAccount)
 	if err != nil {
 		logger.Error("failed to create account", zap.Error(err), zap.Any("document_id", requestAccount.AccoundID))
-		w.WriteHeader(http.StatusInternalServerError)
+		response.WriteServerError(w, "failed to create account")
 		return
 	}
 
-	response := map[string]int{
-		"account_id": accountID,
+	resp := response.Response{
+		Message: "account created successfully",
+		Data: map[string]int{
+			"account_id": accountID,
+		},
 	}
 
-	JSONResponse(w, http.StatusCreated, response)
+	response.Write(w, resp, http.StatusCreated)
 }

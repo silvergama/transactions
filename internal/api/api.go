@@ -14,7 +14,10 @@ import (
 	"github.com/silvergama/transations/transaction"
 	"go.uber.org/zap"
 
+	_ "github.com/silvergama/transations/cmd/api/docs"
+
 	accountRepo "github.com/silvergama/transations/account/postgres"
+
 	handler "github.com/silvergama/transations/internal/http/mux"
 	transactionRepo "github.com/silvergama/transations/transaction/postgres"
 )
