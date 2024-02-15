@@ -1,3 +1,12 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=silvergama_transactions&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=silvergama_transactions)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=silvergama_transactions&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=silvergama_transactions)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=silvergama_transactions&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=silvergama_transactions)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=silvergama_transactions&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=silvergama_transactions)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=silvergama_transactions&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=silvergama_transactions)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=silvergama_transactions&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=silvergama_transactions)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=silvergama_transactions&metric=coverage)](https://sonarcloud.io/summary/new_code?id=silvergama_transactions)
+
+
 # Pismo Technical Challenge - Transaction API
 ![Transaction API](docs/transactions.png)
 ## Description:
