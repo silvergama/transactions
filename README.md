@@ -38,6 +38,13 @@ The main packages include:
 
 
 ## How to Use:
+
+### Requirements
+Ensure you have the following tools installed:
+- [Go](https://golang.org/dl/)
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
 ### Installation:
   To install project dependencies, run the following command
   ```bash
