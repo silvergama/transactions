@@ -43,7 +43,7 @@ func (h *AccountHandler) GetAccount(w http.ResponseWriter, r *http.Request) {
 
 	accountID, err := strconv.Atoi(accountIDStr)
 	if err != nil {
-		logger.Error("failed to convert string to int",
+		logger.Warn("failed to convert string to int",
 			zap.Error(err),
 			zap.String("account_id", accountIDStr),
 			zap.Any("request_id", r.Context().Value("request_id")),

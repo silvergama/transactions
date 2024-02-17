@@ -12,11 +12,11 @@ tidy:
 
 # build the whole application using Go locally
 build: swag
-	@go build -v --ldflags="-s" ./cmd/api
+	@go build -v --ldflags="-s" ./cmd
 
 # build and run service
 run:
-	@go run cmd/api/main.go
+	@go run cmd/main.go
 
 # run unit tests
 test:
@@ -38,7 +38,7 @@ check/swag:
 	which swag || go get -u github.com/swaggo/swag/cmd/swag
 
 swag: check/swag
-	swag init -g cmd/api/main.go
+	swag init -g cmd/main.go
 
 # =========== Working with Docker =============
 docker/build:

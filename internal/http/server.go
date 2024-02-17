@@ -7,23 +7,27 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/silvergama/transations/config"
 	"github.com/silvergama/transations/internal/account"
-	v1 "github.com/silvergama/transations/internal/http/mux/v1"
+	v1 "github.com/silvergama/transations/internal/http/handler/v1"
+	"github.com/silvergama/transations/internal/http/middleware"
 	"github.com/silvergama/transations/internal/transaction"
 	"github.com/silvergama/transations/pkg/logger"
+
 	httpSwagger "github.com/swaggo/http-swagger"
 	"go.uber.org/zap"
 )
 
+// Services is a structure that groups different services needed for the server.
 type Services struct {
 	Account     account.UseCase
 	Transaction transaction.UseCase
 }
 
+// StartServer initializes the server with the provided configuration and necessary services
 func StartServer(cfg config.Config, services Services) {
 
 	router := mux.NewRouter()
 
-	router.Use(RequestIDMiddleware)
+	router.Use(middleware.RequestIDMiddleware)
 
 	routesV1 := router.PathPrefix("/v1").Subrouter()
 	routesV1.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)

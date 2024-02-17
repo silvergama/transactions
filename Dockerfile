@@ -6,7 +6,7 @@ WORKDIR /tmp/go-app
 COPY . .
 
 # Build the Go app
-RUN go build -o ./bin/transaction cmd/api/main.go
+RUN go build -o ./bin/transaction cmd/main.go
 
 # Start fresh from a smaller image
 FROM alpine:3.19

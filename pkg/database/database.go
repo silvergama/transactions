@@ -1,4 +1,4 @@
-package infrastructure
+package database
 
 import (
 	"database/sql"
@@ -12,7 +12,7 @@ type Database struct {
 	Connection *sql.DB
 }
 
-func NewDBConnection(connectionString string) (*Database, error) {
+func Connection(connectionString string) (*Database, error) {
 	db, err := sql.Open("postgres", connectionString)
 	if err != nil {
 		logger.Error(

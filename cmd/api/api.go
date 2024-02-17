@@ -1,17 +1,18 @@
-package app
+package api
 
 import (
 	"fmt"
 
 	"github.com/silvergama/transations/config"
-	"github.com/silvergama/transations/infrastructure"
 	accountRepo "github.com/silvergama/transations/internal/account/postgres"
 	"github.com/silvergama/transations/internal/http"
 	transactionRepo "github.com/silvergama/transations/internal/transaction/postgres"
+	"github.com/silvergama/transations/pkg/database"
 	"github.com/silvergama/transations/pkg/logger"
 	"go.uber.org/zap"
 )
 
+// Run is a function that performs the main execution of the application
 func Run() {
 	cfg := config.ReadProperties()
 
@@ -23,7 +24,7 @@ func Run() {
 		cfg.Database.Base,
 	)
 
-	db, err := infrastructure.NewDBConnection(stringConnection)
+	db, err := database.Connection(stringConnection)
 	if err != nil {
 		logger.Error(
 			"failed to create an instance of the database",

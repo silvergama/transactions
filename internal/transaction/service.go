@@ -17,7 +17,7 @@ func NewService(r Repository) *Service {
 	return &Service{repo: r}
 }
 
-// CreateTransactionHandler handles the creation of a new transaction
+// Create handles the creation of a new transaction
 func (s *Service) Create(ctx context.Context, transaction *Transaction) (int, error) {
 
 	ProcessTransaction(transaction)

@@ -6,10 +6,10 @@
 package main
 
 import (
-	"github.com/silvergama/transations/app"
+	"github.com/silvergama/transations/cmd/api"
 	_ "github.com/silvergama/transations/docs"
 )
 
 func main() {
-	app.Run()
+	api.Run()
 }

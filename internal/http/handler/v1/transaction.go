@@ -37,13 +37,13 @@ func NewTransactionHandler(transactionService transaction.UseCase) *TransactionH
 func (h *TransactionHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var requestTransaction transaction.Transaction
 	if err := json.NewDecoder(r.Body).Decode(&requestTransaction); err != nil {
-		logger.Error("failed to decoding json", zap.Error(err))
+		logger.Warn("failed to decoding json", zap.Error(err))
 		response.WriteBadRequest(w, "failed to decode payload")
 		return
 	}
 
 	if !isValidOperationType(requestTransaction.OperationTypeID) {
-		logger.Error("type of operation not permitted",
+		logger.Warn("type of operation not permitted",
 			zap.Any("operation_type", requestTransaction.OperationTypeID),
 		)
 		response.WriteBadRequest(w, "invalid operation type")
