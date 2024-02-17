@@ -1,4 +1,4 @@
-package mux
+package v1
 
 import (
 	"errors"
@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/gorilla/mux"
-	"github.com/silvergama/transations/account"
-	"github.com/silvergama/transations/account/mocks"
+	"github.com/silvergama/transations/internal/account"
+	"github.com/silvergama/transations/internal/account/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -66,7 +66,7 @@ func TestGetAccountHandler(t *testing.T) {
 			assert.NoError(t, err)
 
 			router := mux.NewRouter()
-			router.HandleFunc("/accounts/{id:[0-9]+}", handler.GetAccountHandler).Methods("GET")
+			router.HandleFunc("/accounts/{id:[0-9]+}", handler.GetAccount).Methods("GET")
 
 			rr := httptest.NewRecorder()
 			router.ServeHTTP(rr, req)

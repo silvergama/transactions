@@ -28,10 +28,10 @@ lint: #fix
 	golangci-lint run $(GOPACKAGES)
 
 cover-clear:
-	rm -f cover.out
+	rm -f coverage.out
 
 coverage: 
-	go test -tags="all" -covermode="count" -coverprofile="cover.out" $(GOPACKAGES)
+	go test -tags="all" -covermode="count" -coverprofile="coverage.out" $(GOPACKAGES)
 
 # =========== Swagger =============
 check/swag:

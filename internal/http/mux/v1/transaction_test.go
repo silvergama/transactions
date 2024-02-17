@@ -1,4 +1,4 @@
-package mux
+package v1
 
 import (
 	"encoding/json"
@@ -9,9 +9,9 @@ import (
 	"testing"
 
 	"github.com/gorilla/mux"
+	"github.com/silvergama/transations/internal/transaction"
+	"github.com/silvergama/transations/internal/transaction/mocks"
 	"github.com/silvergama/transations/pkg/response"
-	"github.com/silvergama/transations/transaction"
-	"github.com/silvergama/transations/transaction/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -74,13 +74,13 @@ func TestCreateTransactionHandler(t *testing.T) {
 			tt.serviceMock(useCase)
 
 			transaction.NewService(useCase)
-			handler := NewTransactionHandler(useCase)
+			tHandler := NewTransactionHandler(useCase)
 
 			req, err := http.NewRequest("POST", "/transactions", strings.NewReader(tt.requestBody))
 			assert.NoError(t, err)
 
 			router := mux.NewRouter()
-			router.HandleFunc("/transactions", handler.CreateTransactionHandler).Methods(http.MethodPost)
+			router.HandleFunc("/transactions", tHandler.Create).Methods(http.MethodPost)
 
 			rr := httptest.NewRecorder()
 			router.ServeHTTP(rr, req)

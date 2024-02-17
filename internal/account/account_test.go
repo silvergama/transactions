@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/silvergama/transations/account"
-	"github.com/silvergama/transations/account/mocks"
+	"github.com/silvergama/transations/internal/account"
+	"github.com/silvergama/transations/internal/account/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/silvergama/transations/transaction"
+	"github.com/silvergama/transations/internal/transaction"
 )
 
 // Repository represents the database repository for transactions

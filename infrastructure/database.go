@@ -12,7 +12,7 @@ type Database struct {
 	Connection *sql.DB
 }
 
-func NewDatabase(connectionString string) (*Database, error) {
+func NewDBConnection(connectionString string) (*Database, error) {
 	db, err := sql.Open("postgres", connectionString)
 	if err != nil {
 		logger.Error(

@@ -1,4 +1,4 @@
-package mux
+package v1
 
 import (
 	"encoding/json"
@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/silvergama/transations/account"
 	_ "github.com/silvergama/transations/docs"
+	"github.com/silvergama/transations/internal/account"
 	"github.com/silvergama/transations/pkg/logger"
 	"github.com/silvergama/transations/pkg/response"
 	"go.uber.org/zap"
@@ -37,7 +37,7 @@ func NewAccountHandler(accountService account.UseCase) *AccountHandler {
 // @Failure      404  {object}  response.Error
 // @Failure      500  {object}  response.Error
 // @Router       /accounts/{id} [get]
-func (h *AccountHandler) GetAccountHandler(w http.ResponseWriter, r *http.Request) {
+func (h *AccountHandler) GetAccount(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	accountIDStr := params["id"]
 
@@ -58,7 +58,7 @@ func (h *AccountHandler) GetAccountHandler(w http.ResponseWriter, r *http.Reques
 		logger.Warn("failed to get account by account_id",
 			zap.Error(err),
 			zap.Int("account_id", accountID))
-		response.WriteNotFound(w, "Unable to find an account with this account_id")
+		response.WriteNotFound(w, "account not found")
 		return
 	}
 
@@ -77,7 +77,7 @@ func (h *AccountHandler) GetAccountHandler(w http.ResponseWriter, r *http.Reques
 // @Failure      404  {object}  response.Error
 // @Failure      500  {object}  response.Error
 // @Router /accounts [post]
-func (h *AccountHandler) CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
+func (h *AccountHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var requestAccount account.Account
 
 	if err := json.NewDecoder(r.Body).Decode(&requestAccount); err != nil {

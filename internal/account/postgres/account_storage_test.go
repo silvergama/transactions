@@ -7,11 +7,11 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/silvergama/transations/account"
+	"github.com/silvergama/transations/internal/account"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestRepository_Create(t *testing.T) {
+func TestRepositoryCreate(t *testing.T) {
 	type arg struct {
 		account *account.Account
 	}
@@ -74,7 +74,7 @@ func TestRepository_Create(t *testing.T) {
 	}
 }
 
-func TestRepository_GetByID(t *testing.T) {
+func TestRepositoryGetByID(t *testing.T) {
 	type arg struct {
 		accountID int
 	}

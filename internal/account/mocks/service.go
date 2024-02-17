@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	account "github.com/silvergama/transations/account"
+	account "github.com/silvergama/transations/internal/account"
 
 	mock "github.com/stretchr/testify/mock"
 )

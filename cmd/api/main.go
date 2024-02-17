@@ -6,11 +6,10 @@
 package main
 
 import (
-	"github.com/silvergama/transations/config"
+	"github.com/silvergama/transations/app"
 	_ "github.com/silvergama/transations/docs"
-	"github.com/silvergama/transations/internal/api"
 )
 
 func main() {
-	api.Start(config.ReadProperties())
+	app.Run()
 }

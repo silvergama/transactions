@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/silvergama/transations/account"
+	"github.com/silvergama/transations/internal/account"
 )
 
 // Repository represents the PostgreSQL implementation of the account.Repository interface

@@ -1,12 +1,12 @@
-package mux
+package v1
 
 import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/silvergama/transations/internal/transaction"
 	"github.com/silvergama/transations/pkg/logger"
 	"github.com/silvergama/transations/pkg/response"
-	"github.com/silvergama/transations/transaction"
 	"go.uber.org/zap"
 )
 
@@ -22,7 +22,7 @@ func NewTransactionHandler(transactionService transaction.UseCase) *TransactionH
 	}
 }
 
-// CreateAccountHandler handles the creation of a new transaction.
+// Create handles the creation of a new transaction.
 // @Summary Create a new transaction
 // @Description Create a new transaction
 // @ID create-transaction
@@ -34,7 +34,7 @@ func NewTransactionHandler(transactionService transaction.UseCase) *TransactionH
 // @Failure      404  {object}  response.Error
 // @Failure      500  {object}  response.Error
 // @Router /transaction [post]
-func (h *TransactionHandler) CreateTransactionHandler(w http.ResponseWriter, r *http.Request) {
+func (h *TransactionHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var requestTransaction transaction.Transaction
 	if err := json.NewDecoder(r.Body).Decode(&requestTransaction); err != nil {
 		logger.Error("failed to decoding json", zap.Error(err))

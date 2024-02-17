@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/silvergama/transations/transaction"
+	"github.com/silvergama/transations/internal/transaction"
 	"github.com/stretchr/testify/assert"
 )
 
