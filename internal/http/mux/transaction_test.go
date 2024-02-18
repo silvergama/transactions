@@ -27,7 +27,7 @@ func TestCreateTransactionHandler(t *testing.T) {
 		{
 			name:           "Success",
 			requestBody:    `{"operation_type_id": 1, "amount": 100}`,
-			expectedStatus: http.StatusCreated,
+			expectedStatus: http.StatusOK,
 			expectedResponse: response.Response{
 				Message: "transaction created successfully",
 				Data:    map[string]interface{}{"transaction_id": float64(1)},

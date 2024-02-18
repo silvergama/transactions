@@ -29,7 +29,7 @@ func NewTransactionHandler(transactionService transaction.UseCase) *TransactionH
 // @Accept json
 // @Produce json
 // @Param transaction body transaction.Transaction true "Transaction object to be created"
-// @Success 201 {object} response.Response
+// @Success      200 {object} response.Response
 // @Failure      400  {object}  response.Error
 // @Failure      404  {object}  response.Error
 // @Failure      500  {object}  response.Error
@@ -66,7 +66,7 @@ func (h *TransactionHandler) CreateTransactionHandler(w http.ResponseWriter, r *
 			"transaction_id": transactionID,
 		},
 	}
-	response.Write(w, resp, http.StatusCreated)
+	response.Write(w, resp, http.StatusOK)
 
 }
 

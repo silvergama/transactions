@@ -23,7 +23,7 @@ func TestWrite(t *testing.T) {
 		{
 			name:   "CustomStatus",
 			body:   Response{Message: "Custom Status", Data: "Custom Data"},
-			status: http.StatusCreated,
+			status: http.StatusOK,
 		},
 	}
 

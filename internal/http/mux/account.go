@@ -72,7 +72,7 @@ func (h *AccountHandler) GetAccountHandler(w http.ResponseWriter, r *http.Reques
 // @Accept json
 // @Produce json
 // @Param account body account.Account true "Account object to be created"
-// @Success 201 {object} response.Response
+// @Success      200 {object} response.Response
 // @Failure      400  {object}  response.Error
 // @Failure      404  {object}  response.Error
 // @Failure      500  {object}  response.Error
@@ -106,5 +106,5 @@ func (h *AccountHandler) CreateAccountHandler(w http.ResponseWriter, r *http.Req
 		},
 	}
 
-	response.Write(w, resp, http.StatusCreated)
+	response.Write(w, resp, http.StatusOK)
 }
