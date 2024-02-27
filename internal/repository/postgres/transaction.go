@@ -4,21 +4,21 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/silvergama/transations/internal/transaction"
+	"github.com/silvergama/transations/internal/domain"
 )
 
-// Repository represents the database repository for transactions
-type Repository struct {
+// transactionRepository represents the database repository for transactions
+type transactionRepository struct {
 	db *sql.DB
 }
 
-// NewTransaction creates a new instance of the Transaction repository
-func NewTransaction(db *sql.DB) *Repository {
-	return &Repository{db}
+// NewTransaction creates a new instance of the Transaction transactionrepository
+func NewTransaction(db *sql.DB) *transactionRepository {
+	return &transactionRepository{db}
 }
 
 // Create creates a new transaction in the database
-func (r *Repository) Create(ctx context.Context, transaction *transaction.Transaction) (int, error) {
+func (r *transactionRepository) Create(ctx context.Context, transaction *domain.Transaction) (int, error) {
 	var transactionID int
 	err := r.db.QueryRowContext(ctx, `
 		INSERT INTO transactions (account_id, operation_type_id, amount)

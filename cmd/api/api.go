@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"github.com/silvergama/transations/config"
-	accountRepo "github.com/silvergama/transations/internal/account/postgres"
 	"github.com/silvergama/transations/internal/http"
-	transactionRepo "github.com/silvergama/transations/internal/transaction/postgres"
+	accountRepo "github.com/silvergama/transations/internal/repository/postgres"
+	transactionRepo "github.com/silvergama/transations/internal/repository/postgres"
 	"github.com/silvergama/transations/pkg/database"
 	"github.com/silvergama/transations/pkg/logger"
 	"go.uber.org/zap"

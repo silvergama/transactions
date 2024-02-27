@@ -5,8 +5,7 @@ package mocks
 import (
 	context "context"
 
-	account "github.com/silvergama/transations/internal/account"
-
+	domain "github.com/silvergama/transations/internal/domain"
 	mock "github.com/stretchr/testify/mock"
 )
 
@@ -15,9 +14,9 @@ type UseCase struct {
 	mock.Mock
 }
 
-// Create provides a mock function with given fields: _a0, _a1
-func (_m *UseCase) Create(_a0 context.Context, _a1 *account.Account) (int, error) {
-	ret := _m.Called(_a0, _a1)
+// Create provides a mock function with given fields: _a0, account
+func (_m *UseCase) Create(_a0 context.Context, account *domain.Account) (int, error) {
+	ret := _m.Called(_a0, account)
 
 	if len(ret) == 0 {
 		panic("no return value specified for Create")
@@ -25,17 +24,17 @@ func (_m *UseCase) Create(_a0 context.Context, _a1 *account.Account) (int, error
 
 	var r0 int
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, *account.Account) (int, error)); ok {
-		return rf(_a0, _a1)
+	if rf, ok := ret.Get(0).(func(context.Context, *domain.Account) (int, error)); ok {
+		return rf(_a0, account)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, *account.Account) int); ok {
-		r0 = rf(_a0, _a1)
+	if rf, ok := ret.Get(0).(func(context.Context, *domain.Account) int); ok {
+		r0 = rf(_a0, account)
 	} else {
 		r0 = ret.Get(0).(int)
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, *account.Account) error); ok {
-		r1 = rf(_a0, _a1)
+	if rf, ok := ret.Get(1).(func(context.Context, *domain.Account) error); ok {
+		r1 = rf(_a0, account)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -44,23 +43,23 @@ func (_m *UseCase) Create(_a0 context.Context, _a1 *account.Account) (int, error
 }
 
 // GetByID provides a mock function with given fields: _a0, id
-func (_m *UseCase) GetByID(_a0 context.Context, id int) (*account.Account, error) {
+func (_m *UseCase) GetByID(_a0 context.Context, id int) (*domain.Account, error) {
 	ret := _m.Called(_a0, id)
 
 	if len(ret) == 0 {
 		panic("no return value specified for GetByID")
 	}
 
-	var r0 *account.Account
+	var r0 *domain.Account
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, int) (*account.Account, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, int) (*domain.Account, error)); ok {
 		return rf(_a0, id)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, int) *account.Account); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, int) *domain.Account); ok {
 		r0 = rf(_a0, id)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*account.Account)
+			r0 = ret.Get(0).(*domain.Account)
 		}
 	}
 

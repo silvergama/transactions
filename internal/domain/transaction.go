@@ -1,4 +1,4 @@
-package transaction
+package domain
 
 import "context"
 
@@ -21,11 +21,6 @@ const (
 )
 
 // Repository defines the interface for transaction database operations
-type Repository interface {
-	Create(ctx context.Context, transaction *Transaction) (int, error)
-}
-
-// UseCase defines the business logic for transaction operations
-type UseCase interface {
+type TransactionRepositoryInterface interface {
 	Create(ctx context.Context, transaction *Transaction) (int, error)
 }

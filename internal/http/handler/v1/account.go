@@ -7,20 +7,21 @@ import (
 
 	"github.com/gorilla/mux"
 	_ "github.com/silvergama/transations/docs"
-	"github.com/silvergama/transations/internal/account"
+	"github.com/silvergama/transations/internal/domain"
+	"github.com/silvergama/transations/internal/usecase/account"
 	"github.com/silvergama/transations/pkg/logger"
 	"github.com/silvergama/transations/pkg/response"
 	"go.uber.org/zap"
 )
 
 // AccountHandler is responsible for handling HTTP requests related to accounts
-type AccountHandler struct {
+type accountHandler struct {
 	accountService account.UseCase
 }
 
 // NewAccountHandler creates a new instance of AccountHandler
-func NewAccountHandler(accountService account.UseCase) *AccountHandler {
-	return &AccountHandler{
+func NewAccountHandler(accountService account.UseCase) *accountHandler {
+	return &accountHandler{
 		accountService: accountService,
 	}
 }
@@ -37,7 +38,7 @@ func NewAccountHandler(accountService account.UseCase) *AccountHandler {
 // @Failure      404  {object}  response.Error
 // @Failure      500  {object}  response.Error
 // @Router       /accounts/{id} [get]
-func (h *AccountHandler) GetAccount(w http.ResponseWriter, r *http.Request) {
+func (h *accountHandler) GetAccount(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	accountIDStr := params["id"]
 
@@ -71,14 +72,14 @@ func (h *AccountHandler) GetAccount(w http.ResponseWriter, r *http.Request) {
 // @ID create-account
 // @Accept json
 // @Produce json
-// @Param account body account.Account true "Account object to be created"
+// @Param account body domain.Account true "Account object to be created"
 // @Success      200 {object} response.Response
 // @Failure      400  {object}  response.Error
 // @Failure      404  {object}  response.Error
 // @Failure      500  {object}  response.Error
 // @Router /accounts [post]
-func (h *AccountHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var requestAccount account.Account
+func (h *accountHandler) Create(w http.ResponseWriter, r *http.Request) {
+	var requestAccount domain.Account
 
 	if err := json.NewDecoder(r.Body).Decode(&requestAccount); err != nil {
 		logger.Error("failed to decoding json", zap.Error(err))

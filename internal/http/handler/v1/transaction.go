@@ -4,20 +4,21 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/silvergama/transations/internal/transaction"
+	"github.com/silvergama/transations/internal/domain"
+	"github.com/silvergama/transations/internal/usecase/transaction"
 	"github.com/silvergama/transations/pkg/logger"
 	"github.com/silvergama/transations/pkg/response"
 	"go.uber.org/zap"
 )
 
 // TransactionHandler is responsible for handling HTTP requests related to transactions
-type TransactionHandler struct {
+type transactionHandler struct {
 	transactionService transaction.UseCase
 }
 
 // NewTransactionHandler creates a new instance of TransactionHandler
-func NewTransactionHandler(transactionService transaction.UseCase) *TransactionHandler {
-	return &TransactionHandler{
+func NewTransactionHandler(transactionService transaction.UseCase) *transactionHandler {
+	return &transactionHandler{
 		transactionService: transactionService,
 	}
 }
@@ -34,8 +35,8 @@ func NewTransactionHandler(transactionService transaction.UseCase) *TransactionH
 // @Failure      404  {object}  response.Error
 // @Failure      500  {object}  response.Error
 // @Router /transaction [post]
-func (h *TransactionHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var requestTransaction transaction.Transaction
+func (h *transactionHandler) Create(w http.ResponseWriter, r *http.Request) {
+	var requestTransaction domain.Transaction
 	if err := json.NewDecoder(r.Body).Decode(&requestTransaction); err != nil {
 		logger.Warn("failed to decoding json", zap.Error(err))
 		response.WriteBadRequest(w, "failed to decode payload")
@@ -71,9 +72,9 @@ func (h *TransactionHandler) Create(w http.ResponseWriter, r *http.Request) {
 }
 
 // isValidOperationType checks if the provided operation type is valid
-func isValidOperationType(opType transaction.OperationType) bool {
+func isValidOperationType(opType domain.OperationType) bool {
 	switch opType {
-	case transaction.Purchase, transaction.Installment, transaction.Withdrawal, transaction.Payment:
+	case domain.Purchase, domain.Installment, domain.Withdrawal, domain.Payment:
 		return true
 	default:
 		return false

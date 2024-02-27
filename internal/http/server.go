@@ -6,10 +6,11 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/silvergama/transations/config"
-	"github.com/silvergama/transations/internal/account"
 	v1 "github.com/silvergama/transations/internal/http/handler/v1"
 	"github.com/silvergama/transations/internal/http/middleware"
-	"github.com/silvergama/transations/internal/transaction"
+	"github.com/silvergama/transations/internal/usecase/account"
+	"github.com/silvergama/transations/internal/usecase/transaction"
+
 	"github.com/silvergama/transations/pkg/logger"
 
 	httpSwagger "github.com/swaggo/http-swagger"

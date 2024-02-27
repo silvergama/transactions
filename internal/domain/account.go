@@ -1,11 +1,12 @@
-package account
+package domain
 
 import "context"
 
 // Account represents the account entity with its attributes
 type Account struct {
-	AccoundID      int    `json:"accound_id,omitempty"`
-	DocumentNumber string `json:"document_number,omitempty"`
+	AccoundID             int     `json:"accound_id,omitempty"`
+	DocumentNumber        string  `json:"document_number,omitempty"`
+	AvaillableCreditLimit float64 `json:"avallable_credit_limit,omitempty"`
 }
 
 // Reader provides methods for reading account information
@@ -19,13 +20,7 @@ type Writer interface {
 }
 
 // Repository combines the Reader and Writer interfaces to represent a complete set of account data operations
-type Repository interface {
+type AccountRepositoryInterface interface {
 	Reader
 	Writer
-}
-
-// UseCase defines the use cases for interacting with account data
-type UseCase interface {
-	Create(context context.Context, account *Account) (int, error)
-	GetByID(context context.Context, id int) (*Account, error)
 }

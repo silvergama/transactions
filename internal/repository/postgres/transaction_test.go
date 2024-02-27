@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/silvergama/transations/internal/transaction"
+	"github.com/silvergama/transations/internal/domain"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -46,7 +46,7 @@ func TestRepositoryCreate(t *testing.T) {
 			repo := NewTransaction(mockDB)
 			tt.mockedQuery(mock)
 
-			gotID, err := repo.Create(context.Background(), &transaction.Transaction{AccountID: 1, OperationTypeID: 1, Amount: 100.0})
+			gotID, err := repo.Create(context.Background(), &domain.Transaction{AccountID: 1, OperationTypeID: 1, Amount: 100.0})
 
 			assert.Equal(t, tt.wantID, gotID)
 			assert.Equal(t, tt.wantErr, err)

@@ -7,13 +7,13 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/silvergama/transations/internal/account"
+	"github.com/silvergama/transations/internal/domain"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestRepositoryCreate(t *testing.T) {
+func TestAccountRepositoryCreate(t *testing.T) {
 	type arg struct {
-		account *account.Account
+		account *domain.Account
 	}
 	tests := []struct {
 		name        string
@@ -25,7 +25,7 @@ func TestRepositoryCreate(t *testing.T) {
 		{
 			name: "should return account id",
 			arg: arg{
-				account: &account.Account{
+				account: &domain.Account{
 					DocumentNumber: "123456",
 				},
 			},
@@ -38,7 +38,7 @@ func TestRepositoryCreate(t *testing.T) {
 		{
 			name: "should return an error",
 			arg: arg{
-				account: &account.Account{
+				account: &domain.Account{
 					AccoundID:      1,
 					DocumentNumber: "987765",
 				},
@@ -74,7 +74,7 @@ func TestRepositoryCreate(t *testing.T) {
 	}
 }
 
-func TestRepositoryGetByID(t *testing.T) {
+func TestAccountRepositoryGetByID(t *testing.T) {
 	type arg struct {
 		accountID int
 	}
@@ -82,7 +82,7 @@ func TestRepositoryGetByID(t *testing.T) {
 		name        string
 		arg         arg
 		mockedQuery func(mock sqlmock.Sqlmock)
-		wantAccount *account.Account
+		wantAccount *domain.Account
 		wantErr     error
 	}{
 		{
@@ -95,7 +95,7 @@ func TestRepositoryGetByID(t *testing.T) {
 					AddRow(1, "123456")
 				mock.ExpectQuery("SELECT id, document_number FROM accounts").WithArgs(1).WillReturnRows(rows)
 			},
-			wantAccount: &account.Account{
+			wantAccount: &domain.Account{
 				AccoundID:      1,
 				DocumentNumber: "123456",
 			},
