@@ -4,9 +4,9 @@ import "context"
 
 // Account represents the account entity with its attributes
 type Account struct {
-	AccoundID             int     `json:"accound_id,omitempty"`
-	DocumentNumber        string  `json:"document_number,omitempty"`
-	AvaillableCreditLimit float64 `json:"avallable_credit_limit,omitempty"`
+	AccoundID            int     `json:"accound_id,omitempty"`
+	DocumentNumber       string  `json:"document_number,omitempty"`
+	AvailableCreditLimit float64 `json:"avalable_credit_limit,omitempty"`
 }
 
 // Reader provides methods for reading account information

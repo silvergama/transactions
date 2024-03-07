@@ -2,6 +2,8 @@ package transaction
 
 import (
 	"context"
+	"errors"
+	"fmt"
 
 	"github.com/silvergama/transations/internal/domain"
 	"github.com/silvergama/transations/pkg/logger"
@@ -20,30 +22,40 @@ type service struct {
 }
 
 // NewService creates a new Service instance with the provided repository
-func NewService(t domain.TransactionRepositoryInterface, a domain.AccountRepositoryInterface) UseCase {
+func NewService(t domain.TransactionRepositoryInterface, a domain.AccountRepositoryInterface,
+) UseCase {
 	return &service{
 		transactionRepo: t,
 		accountRepo:     a,
 	}
 }
 
-// Create handles the creation of a new transaction
+// ProcessTransaction updates the account balance based on the transaction type
+func ProcessTransaction(account *domain.Account, transaction *domain.Transaction) {
+
+	if transaction.OperationTypeID == domain.Payment {
+		account.AvailableCreditLimit = account.AvailableCreditLimit + transaction.Amount
+		return
+	}
+
+	account.AvailableCreditLimit = account.AvailableCreditLimit - transaction.Amount
+	transaction.Amount = -transaction.Amount
+}
+
 func (s *service) Create(ctx context.Context, transaction *domain.Transaction) (int, error) {
-
-	ProcessTransaction(transaction)
-
-	_, err := s.accountRepo.GetByID(ctx, transaction.AccountID)
+	if !isValidOperationType(transaction.OperationTypeID) {
+		return 0, errors.New("invalid transaction type")
+	}
+	account, err := s.accountRepo.GetByID(ctx, transaction.AccountID)
 	if err != nil {
 		return 0, err
 	}
 
-	// validate balance
+	ProcessTransaction(account, transaction)
 
-	// account, err := s.(ctx, transaction)
-	// if !s.validateBalance(transaction.Amount, account.AvaillableCreditLimit) {
-	// 	//log
-	// 	return 0, err
-	// }
+	if !s.hasLimit(account.AvailableCreditLimit) {
+		return 0, fmt.Errorf("no balance available")
+	}
 
 	transactionID, err := s.transactionRepo.Create(ctx, transaction)
 	if err != nil {
@@ -55,27 +67,22 @@ func (s *service) Create(ctx context.Context, transaction *domain.Transaction) (
 		return 0, err
 	}
 
-	// err, a := s.AccountRepo.UpdateLimit(limit)
-	// if err != nil {
-	// 	//log
-	// 	return 0, nil
-	// }
+	// update account limit
 
 	return transactionID, nil
 }
 
-// ProcessTransaction processes the given transaction
-func ProcessTransaction(t *domain.Transaction) {
-	switch t.OperationTypeID {
-	case domain.Purchase, domain.Withdrawal, domain.Installment:
-		t.Amount = -t.Amount
-	case domain.Payment:
-		t.Amount = +t.Amount
-	default:
-		return
-	}
+// validateBalance determines if the transaction amount is within the account balance
+func (s *service) hasLimit(limit float64) bool {
+	return limit >= 0
 }
 
-// func (s *service) validateBalance(value, limit float64) bool {
-// 	return value <= limit
-// }
+// isValidOperationType determines if the given operation type is valid
+func isValidOperationType(operationType domain.OperationType) bool {
+	switch operationType {
+	case domain.Purchase, domain.Installment, domain.Withdrawal, domain.Payment:
+		return true
+	default:
+		return false
+	}
+}
